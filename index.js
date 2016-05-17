@@ -26,7 +26,7 @@ if(!module.parent) {
         .then(function() {
 
             var vals = [];
-            for(var i = 0 ; i < 24 ; i++) vals[i] = i;
+            for(var i = 0 ; i < 96 ; i++) vals[i] = i;
 
             return Promise.all(vals.map((a, index) => {
                 var date = new Date('2016-05-17');
