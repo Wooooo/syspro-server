@@ -36,7 +36,8 @@ router.get('/', (req, res, next) => {
                 $gte: startDate,
                 $lte: endDate
             }
-        }
+        },
+        order: ['created_at']
     })
     .then((data) => {
         res.send({

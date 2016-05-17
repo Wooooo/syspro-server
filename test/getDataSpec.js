@@ -49,7 +49,7 @@ describe('#Data controller', () => {
                 .then((res) => {
                     res.body.data.should.have.length(5);
 
-                    console.log(res.body.data[0]);
+                    console.log(res.body.data);
                 });
         });
     });
