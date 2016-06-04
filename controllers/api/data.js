@@ -22,21 +22,29 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-    var date = req.query.date.split('.').join('-')+' 00:00:00';
-    var offset = (req.query.offset && req.query.offset*1) || 1;
+    var date;
+    if( req.query.date ) {
+        date = req.query.date.split('.').join('-')+' 00:00:00';
+    }
 
-    var startDate = new Date(date);
-    var endDate = new Date(date);
+    var findOption = {};
 
-    endDate.setDate(endDate.getDate()+offset);
+    if( date ) {
+        var startDate = new Date(date);
+        var endDate = new Date(date);
+
+        var offset = (req.query.offset && req.query.offset*1) || 1;
+
+        endDate.setDate(endDate.getDate()+offset);
+
+        findOption['created_at'] = {
+            $gte: startDate,
+            $lte: endDate
+        }
+    };
 
     db.Data.findAll({
-        where: {
-            created_at: {
-                $gte: startDate,
-                $lte: endDate
-            }
-        },
+        where: findOption,
         order: ['created_at']
     })
     .then((data) => {
