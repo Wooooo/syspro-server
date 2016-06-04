@@ -11,6 +11,8 @@ module.exports = (app) => {
 
 
 router.post('/', (req, res, next) => {
+    console.log(req.body);
+
     db.Data.create(req.body)
         .then((datum) => {
             res.status(200).end();
