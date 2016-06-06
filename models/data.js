@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
 
-    var Data = sequelize.define('Data', {
+    var Data = sequelize.define('data', {
         unique_id: {
             type: DataTypes.UUID,
             primaryKey: true,

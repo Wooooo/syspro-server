@@ -45,7 +45,7 @@ router.get('/', (req, res, next) => {
         }
     };
 
-    db.Data.findAll({
+    db.data.findAll({
         where: findOption,
         order: ['created_at']
     })

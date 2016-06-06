@@ -40,7 +40,7 @@ if(!module.parent) {
                     illumination: Math.random()*500
                 };
 
-                return db.Data.create(_data).then((data) => {
+                return db.data.create(_data).then((data) => {
                     data.created_at = date;
 
                     return data.save();

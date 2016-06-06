@@ -32,6 +32,7 @@ module.exports = function (app, config) {
     app.use(cookieParser());
     app.use(compress());
     app.use('/assets', express.static(config.root + '/assets'));
+    app.use('/photos', express.static(path.join(appRoot.path, 'photos')));
     app.use(methodOverride());
 
     /** config for passport
