@@ -23,7 +23,10 @@ router.post('/', (req, res, next) => {
     db.data.create(req.body)
         .then((datum) => {
             client.post('statuses/update', {status: 'Data upload!'},  function(error, tweet, response){
-                if(error) throw error;
+                if(error) {
+                    console.log(error);
+                    throw error;
+                }
                 console.log(tweet);  // Tweet body.
                 console.log(response);  // Raw response object.
 
