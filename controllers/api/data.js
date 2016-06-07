@@ -3,19 +3,34 @@ const
     router      = express.Router(),
     appRoot     = require('app-root-path'),
     path        = require('path'),
-    db          = require(`${appRoot}/models`);
+    db          = require(`${appRoot}/models`),
+    Twitter     = require('twitter');
 
 module.exports = (app) => {
     app.use('/data', router);
 };
 
+var client = new Twitter({
+    consumer_key: 'Efo6fg7p21z3O6nq9Nka79V0r',
+    consumer_secret: 'P7B4GtnvKnlQGQwRO48HlwC4VBmXPJ1linsQSHgYtaW0B8ahN8',
+    access_token_key: '740024569679872000-oplh2WJchx3Rxw1vXarEDr761YbIPeQ',
+    access_token_secret: 'DQCGEsaAUSk8GLS0qx4q9jrUrG79Wwc7aFpTTeGf8DolI'
+});
 
 router.post('/', (req, res, next) => {
     console.log(req.body);
 
-    db.Data.create(req.body)
+    db.data.create(req.body)
         .then((datum) => {
-            res.status(200).end();
+            client.post('statuses/update', {status: 'Data upload!'},  function(error, tweet, response){
+                if(error) throw error;
+                console.log(tweet);  // Tweet body.
+                console.log(response);  // Raw response object.
+
+
+                res.status(200).end();
+            });
+
         })
         .catch((err) => {
             console.log(err);
