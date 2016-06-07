@@ -22,7 +22,7 @@ router.post('/', (req, res, next) => {
 
     db.data.create(req.body)
         .then((datum) => {
-            client.post('statuses/update', {status: 'Data upload!'},  function(error, tweet, response){
+            client.post('statuses/update', {status: `Data upload! ${JSON.stringify(datum)}`},  function(error, tweet, response){
                 if(error) {
                     console.log(error);
                     throw error;
