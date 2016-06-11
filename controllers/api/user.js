@@ -10,9 +10,17 @@ module.exports = (app) => {
 };
 
 
-router.get('/:userId',
+router.get('/:userId?',
     (req, res, next) => {
-        console.log(req.params.userId);
+        var {userId} = req.params;
+        var userIdRegExp = /^([0-9]+){1,10}$/;
+
+        console.log(userId);
+
+        if( !userId || typeof(userId) !== 'string' || userIdRegExp.test(userId) === false ) {
+            res.status(400).end();
+        }
+
         res.send("15 16 18 20 34");
     }
 );
