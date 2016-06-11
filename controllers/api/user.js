@@ -10,9 +10,9 @@ module.exports = (app) => {
 };
 
 
-router.get('/',
+router.get('/:userId',
     (req, res, next) => {
-        console.log(req.query.user_id);
+        console.log(req.params.userId);
         res.send("15 16 18 20 34");
     }
 );
