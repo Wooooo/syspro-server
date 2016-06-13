@@ -53,26 +53,29 @@ router.get('/:userId?',
 
 
 
-        if( !userId || typeof(userId) !== 'string' || userIdRegExp.test(userId) === false ) {
+        if( !userId || typeof(userId) != 'number' || typeof(userId) !== 'string' || userIdRegExp.test(userId) === false ) {
             res.status(400).end();
         }
 
-        db.user.find({
-            where: {
-                id: userId
-            }
-        }).then((result) => {
-
-            if( result == null ) {
-                return db.user.create({
+        else {
+            db.user.find({
+                where: {
                     id: userId
-                });
-            }
-            else {
-                return result;
-            }
-        }).then((_res) => {
-            res.send(`${_res.illumination} ${_res.temperature} ${_res.humidity} ${_res.soil_humidity}`)
-        });
+                }
+            }).then((result) => {
+
+                if( result == null ) {
+                    return db.user.create({
+                        id: userId
+                    });
+                }
+                else {
+                    return result;
+                }
+            }).then((_res) => {
+                res.send(`${_res.illumination} ${_res.temperature} ${_res.humidity} ${_res.soil_humidity}`)
+            });
+        }
+
     }
 );
