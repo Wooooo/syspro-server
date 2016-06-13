@@ -18,21 +18,10 @@ var client = new Twitter({
 });
 
 router.post('/', (req, res, next) => {
-    console.log(req.body);
 
     db.data.create(req.body)
         .then((datum) => {
-            client.post('statuses/update', {status: `Data upload! ${(new Date()).toString()}`},  function(error, tweet, response){
-                if(error) {
-                    console.log(error);
-                    throw error;
-                }
-                console.log(tweet);  // Tweet body.
-                console.log(response);  // Raw response object.
-
-
-                res.status(200).end();
-            });
+            res.status(200).end();
 
         })
         .catch((err) => {
@@ -42,30 +31,30 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-    var date;
-    if( req.query.date ) {
-        date = req.query.date.split('.').join('-')+' 00:00:00';
-    }
-
-    var findOption = {};
-
-    if( date ) {
-        var startDate = new Date(date);
-        var endDate = new Date(date);
-
-        var offset = (req.query.offset && req.query.offset*1) || 1;
-
-        endDate.setDate(endDate.getDate()+offset);
-
-        findOption['created_at'] = {
-            $gte: startDate,
-            $lte: endDate
-        }
-    };
+    //var date;
+    //if( req.query.date ) {
+    //    date = req.query.date.split('.').join('-')+' 00:00:00';
+    //}
+    //
+    //var findOption = {};
+    //
+    //if( date ) {
+    //    var startDate = new Date(date);
+    //    var endDate = new Date(date);
+    //
+    //    var offset = (req.query.offset && req.query.offset*1) || 1;
+    //
+    //    endDate.setDate(endDate.getDate()+offset);
+    //
+    //    findOption['created_at'] = {
+    //        $gte: startDate,
+    //        $lte: endDate
+    //    }
+    //};
 
     db.data.findAll({
-        where: findOption,
-        order: ['created_at']
+        //where: findOption,
+        //order: ['created_at']
     })
     .then((data) => {
         res.send({

@@ -13,10 +13,16 @@ module.exports = (app) => {
 };
 
 
-router.get('/', (req, res, next) => {
-    db.photo.findAll().then((photos) => {
-        console.log(photos);
+router.get('/:userId', (req, res, next) => {
+    console.log(req.params);
+    var {userId} = req.params;
 
+    db.photo.findAll({
+        where: {
+            userId: userId
+        }
+    }).then((photos) => {
+        console.log(photos);
         res.render('photos', {
             photos: photos || [],
             title: 'Photos'
