@@ -52,7 +52,7 @@ router.get('/:userId?',
         var userIdRegExp = /^([0-9]+){1,10}$/;
 
 
-
+        console.log(userId);
         if( !userId || (typeof(userId) !== 'number' && typeof(userId) !== 'string') || userIdRegExp.test(userId) === false ) {
             res.status(400).end();
         }
