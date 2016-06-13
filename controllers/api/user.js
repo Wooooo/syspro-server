@@ -53,7 +53,7 @@ router.get('/:userId?',
 
 
 
-        if( !userId || typeof(userId) != 'number' || typeof(userId) !== 'string' || userIdRegExp.test(userId) === false ) {
+        if( !userId || (typeof(userId) !== 'number' && typeof(userId) !== 'string') || userIdRegExp.test(userId) === false ) {
             res.status(400).end();
         }
 
