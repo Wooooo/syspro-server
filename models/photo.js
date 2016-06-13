@@ -15,6 +15,9 @@ module.exports = function (sequelize, DataTypes) {
         },
         size: {
             type: DataTypes.INTEGER
+        },
+        userId: {
+            type: DataTypes.STRING
         }
 
     }, {

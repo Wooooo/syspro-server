@@ -13,13 +13,14 @@ module.exports = (app) => {
 };
 
 
-router.post('/', upload.single('sendfile'),
+router.post('/:userId', upload.single('sendfile'),
     (req, res, next) => {
         console.log(req.file);
         var {filename, mimetype, size} = req.file;
+        var {userId} = req.params;
 
         db.photo.create({
-            filename, mimetype, size
+            filename, mimetype, size, userId
         }).then((file) => {
             console.log(file);
             res.end();
