@@ -17,11 +17,15 @@ var client = new Twitter({
     access_token_secret: 'DQCGEsaAUSk8GLS0qx4q9jrUrG79Wwc7aFpTTeGf8DolI'
 });
 
+/**
+ * When ecube send sns event,
+ * asks twitter to upload status.
+ */
 router.post('/', (req, res, next) => {
     console.log(req.body);
     var {message} = req.body;
 
-    client.post('statuses/update', {status: `Data upload! ${message}`},  function(error, tweet, response){
+    client.post('statuses/update', {status: `Flower said: ${message}`},  function(error, tweet, response){
         if(error) {
             console.log(error);
             throw error;

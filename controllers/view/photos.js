@@ -1,3 +1,7 @@
+/**
+ * @author Taewoo Kim
+ * @brief View for photos
+ */
 const
     express     = require('express'),
     router      = express.Router(),
@@ -12,7 +16,10 @@ module.exports = (app) => {
     app.use('/photos', router);
 };
 
-
+/**
+ * When user wants photos view with userId,
+ *
+ */
 router.get('/:userId', (req, res, next) => {
     console.log(req.params);
     var {userId} = req.params;

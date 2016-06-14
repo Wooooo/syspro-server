@@ -1,3 +1,8 @@
+/**
+ * @file index.js
+ * @author Taewoo Kim
+ * @brief Init other controllers
+ */
 const
     glob        = require('glob'),
     path        = require('path'),
@@ -6,6 +11,10 @@ const
 
 var controllers = glob.sync( path.join(__dirname, '*.js') );
 
+/**
+ * @
+ * @param app
+ */
 module.exports = (app)=>{
     app.use('/api', router);
 

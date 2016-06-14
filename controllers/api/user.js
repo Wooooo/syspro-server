@@ -1,3 +1,7 @@
+/**
+ * @author Taewoo Kim
+ * @brief controller about user config
+ */
 const
     express     = require('express'),
     router      = express.Router(),
@@ -9,6 +13,10 @@ module.exports = (app) => {
     app.use('/users', router);
 };
 
+/**
+ * When user gives config update to server,
+ * receive them and save into database
+ */
 router.post('/:userId',
     (req, res, next) => {
         var {userId} = req.param;
@@ -45,7 +53,14 @@ router.post('/:userId',
             res.status(200).end();
         })
     }
-)
+);
+
+/**
+ * When user require user config,
+ * read them in database and give to them
+ *
+ * If never post user config, then it create user default info (10, 10, 10, 10)
+ */
 router.get('/:userId?',
     (req, res, next) => {
         var {userId} = req.params;

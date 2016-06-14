@@ -1,3 +1,8 @@
+/**
+ * @file data.js
+ * @author Taewoo Kim
+ * @brief controller that handle data about plant
+ */
 const
     express     = require('express'),
     router      = express.Router(),
@@ -10,13 +15,10 @@ module.exports = (app) => {
     app.use('/data', router);
 };
 
-var client = new Twitter({
-    consumer_key: 'Efo6fg7p21z3O6nq9Nka79V0r',
-    consumer_secret: 'P7B4GtnvKnlQGQwRO48HlwC4VBmXPJ1linsQSHgYtaW0B8ahN8',
-    access_token_key: '740024569679872000-oplh2WJchx3Rxw1vXarEDr761YbIPeQ',
-    access_token_secret: 'DQCGEsaAUSk8GLS0qx4q9jrUrG79Wwc7aFpTTeGf8DolI'
-});
-
+/**
+ * When user send data about plant to /api/data,
+ * receive them and save into database
+ */
 router.post('/', (req, res, next) => {
 
     db.data.create(req.body)
@@ -30,31 +32,34 @@ router.post('/', (req, res, next) => {
         });
 });
 
+/**
+ * When user require data about their plant,
+ * read them from database and send them
+ */
 router.get('/', (req, res, next) => {
-    //var date;
-    //if( req.query.date ) {
-    //    date = req.query.date.split('.').join('-')+' 00:00:00';
-    //}
-    //
-    //var findOption = {};
-    //
-    //if( date ) {
-    //    var startDate = new Date(date);
-    //    var endDate = new Date(date);
-    //
-    //    var offset = (req.query.offset && req.query.offset*1) || 1;
-    //
-    //    endDate.setDate(endDate.getDate()+offset);
-    //
-    //    findOption['created_at'] = {
-    //        $gte: startDate,
-    //        $lte: endDate
-    //    }
-    //};
+    var date;
+    if( req.query.date ) {
+        date = req.query.date.split('.').join('-')+' 00:00:00';
+    }
 
+    var findOption = {};
+
+    if( date ) {
+        var startDate = new Date(date);
+        var endDate = new Date(date);
+
+        var offset = (req.query.offset && req.query.offset*1) || 1;
+
+        endDate.setDate(endDate.getDate()+offset);
+
+        findOption['created_at'] = {
+            $gte: startDate,
+            $lte: endDate
+        }
+    };
     db.data.findAll({
-        //where: findOption,
-        //order: ['created_at']
+        where: findOption,
+        order: ['created_at']
     })
     .then((data) => {
         res.send({

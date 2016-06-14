@@ -1,3 +1,7 @@
+/**
+ * @author Taewoo Kim
+ * @brief Init other controllers
+ */
 const
     glob        = require('glob'),
     path        = require('path'),
@@ -6,6 +10,9 @@ const
 
 var controllers = glob.sync( path.join(__dirname, '*.js') );
 
+/**
+ * Init other controllers to append /view
+ */
 module.exports = (app)=>{
     app.use('/view', router);
 
